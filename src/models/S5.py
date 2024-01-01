@@ -83,10 +83,10 @@ def apply_ssm_with_feedthrough(input_sequence, Lambda_bar, B_bar, C_tilde, D, co
 
 
 class S5SSM(nn.Module):
-    Lambda_re_init: np.Array
-    Lambda_im_init: np.Array
-    V: np.Array
-    Vinv: np.Array
+    Lambda_re_init: np.array
+    Lambda_im_init: np.array
+    V: np.array
+    Vinv: np.array
 
     H: int
     P: int
