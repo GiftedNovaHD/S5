@@ -153,7 +153,6 @@ def init_model_state(rng_key, model, input, config):
     variables = model.init({k: rng_key for k in ['params', *config.rng_keys]}, 
                            input, 
                            training=True)
-    )
     #variables = model.init({k: rng_key for k in ['params', *config.rng_keys]}, input, training=True).unfreeze()
     # https://flax.readthedocs.io/en/latest/api_reference/flax.core.frozen_dict.html 
     params = (unfreeze(variables)).pop('params')
