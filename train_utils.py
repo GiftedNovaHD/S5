@@ -149,9 +149,15 @@ def get_optimizer(config, params):
 
 
 def init_model_state(rng_key, model, input, config):
-    variables = model.init({k: rng_key for k in ['params', *config.rng_keys]}, input, training=True
-    ).unfreeze()
-    params = variables.pop('params')
+    variables = model.init({k: rng_key for k in ['params', *config.rng_keys]}, 
+                           input, 
+                           training=True
+    )
+    #variables = model.init({k: rng_key for k in ['params', *config.rng_keys]}, input, training=True).unfreeze()
+    # The above line is calling unfreeze as an attribute, which gave an error. 
+    # Should create a mutable copy of FrozenDict in order to unfreeze it.
+    # https://flax.readthedocs.io/en/latest/api_reference/flax.core.frozen_dict.html 
+    params = unfreeze(variables).pop('params')
     model_state = variables
     print_model_size(params)
 
